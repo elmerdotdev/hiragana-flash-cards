@@ -38,7 +38,8 @@ const elements = {
   soundToggleButton: document.querySelector("#sound-toggle-button"),
   scoreText: document.querySelector("#score-text"),
   accuracyText: document.querySelector("#accuracy-text"),
-  bestScoreText: document.querySelector("#best-score-text")
+  bestScoreText: document.querySelector("#best-score-text"),
+  symbolsList: document.querySelector("#symbols-list")
 };
 
 const state = {
@@ -63,6 +64,7 @@ init();
 async function init() {
   state.data = await loadData();
   renderSetOptions();
+  renderSymbolsPanel();
   restoreSettings();
   state.bestScore = Math.max(state.bestScore, state.score.correct);
   saveBestScore();
@@ -149,6 +151,40 @@ function renderSetOptions() {
       <span>${set.label}</span>
     `;
     elements.setOptions.append(label);
+  });
+}
+
+function renderSymbolsPanel() {
+  elements.symbolsList.innerHTML = "";
+
+  state.data.sets.forEach((set) => {
+    const section = document.createElement("section");
+    section.className = "symbol-set";
+
+    const heading = document.createElement("h3");
+    heading.textContent = set.label;
+
+    const grid = document.createElement("div");
+    grid.className = "symbol-grid";
+
+    set.items.forEach((item) => {
+      const tile = document.createElement("div");
+      tile.className = "symbol-tile";
+
+      const symbol = document.createElement("span");
+      symbol.className = "symbol-glyph";
+      symbol.textContent = item.symbol;
+
+      const romaji = document.createElement("span");
+      romaji.className = "symbol-romaji";
+      romaji.textContent = item.romaji;
+
+      tile.append(symbol, romaji);
+      grid.append(tile);
+    });
+
+    section.append(heading, grid);
+    elements.symbolsList.append(section);
   });
 }
 
