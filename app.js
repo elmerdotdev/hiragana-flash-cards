@@ -1,63 +1,196 @@
 const fallbackData = {
   sets: [
-    { id: "vowels", label: "Vowels", items: [{ symbol: "あ", romaji: "a" }, { symbol: "い", romaji: "i" }, { symbol: "う", romaji: "u" }, { symbol: "え", romaji: "e" }, { symbol: "お", romaji: "o" }] },
-    { id: "k", label: "K set", items: [{ symbol: "か", romaji: "ka" }, { symbol: "き", romaji: "ki" }, { symbol: "く", romaji: "ku" }, { symbol: "け", romaji: "ke" }, { symbol: "こ", romaji: "ko" }] },
-    { id: "s", label: "S set", items: [{ symbol: "さ", romaji: "sa" }, { symbol: "し", romaji: "shi" }, { symbol: "す", romaji: "su" }, { symbol: "せ", romaji: "se" }, { symbol: "そ", romaji: "so" }] },
-    { id: "t", label: "T set", items: [{ symbol: "た", romaji: "ta" }, { symbol: "ち", romaji: "chi" }, { symbol: "つ", romaji: "tsu" }, { symbol: "て", romaji: "te" }, { symbol: "と", romaji: "to" }] },
-    { id: "n", label: "N set", items: [{ symbol: "な", romaji: "na" }, { symbol: "に", romaji: "ni" }, { symbol: "ぬ", romaji: "nu" }, { symbol: "ね", romaji: "ne" }, { symbol: "の", romaji: "no" }] },
-    { id: "h", label: "H set", items: [{ symbol: "は", romaji: "ha" }, { symbol: "ひ", romaji: "hi" }, { symbol: "ふ", romaji: "fu" }, { symbol: "へ", romaji: "he" }, { symbol: "ほ", romaji: "ho" }] },
-    { id: "m", label: "M set", items: [{ symbol: "ま", romaji: "ma" }, { symbol: "み", romaji: "mi" }, { symbol: "む", romaji: "mu" }, { symbol: "め", romaji: "me" }, { symbol: "も", romaji: "mo" }] },
-    { id: "y", label: "Y set", items: [{ symbol: "や", romaji: "ya" }, { symbol: "ゆ", romaji: "yu" }, { symbol: "よ", romaji: "yo" }] },
-    { id: "r", label: "R set", items: [{ symbol: "ら", romaji: "ra" }, { symbol: "り", romaji: "ri" }, { symbol: "る", romaji: "ru" }, { symbol: "れ", romaji: "re" }, { symbol: "ろ", romaji: "ro" }] },
-    { id: "w", label: "W set", items: [{ symbol: "わ", romaji: "wa" }, { symbol: "を", romaji: "wo" }, { symbol: "ん", romaji: "n" }] },
-    { id: "dakuten", label: "Dakuten", items: [{ symbol: "が", romaji: "ga" }, { symbol: "ぎ", romaji: "gi" }, { symbol: "ぐ", romaji: "gu" }, { symbol: "げ", romaji: "ge" }, { symbol: "ご", romaji: "go" }, { symbol: "ざ", romaji: "za" }, { symbol: "じ", romaji: "ji" }, { symbol: "ず", romaji: "zu" }, { symbol: "ぜ", romaji: "ze" }, { symbol: "ぞ", romaji: "zo" }, { symbol: "だ", romaji: "da" }, { symbol: "ぢ", romaji: "ji" }, { symbol: "づ", romaji: "zu" }, { symbol: "で", romaji: "de" }, { symbol: "ど", romaji: "do" }, { symbol: "ば", romaji: "ba" }, { symbol: "び", romaji: "bi" }, { symbol: "ぶ", romaji: "bu" }, { symbol: "べ", romaji: "be" }, { symbol: "ぼ", romaji: "bo" }] },
-    { id: "handakuten", label: "Handakuten", items: [{ symbol: "ぱ", romaji: "pa" }, { symbol: "ぴ", romaji: "pi" }, { symbol: "ぷ", romaji: "pu" }, { symbol: "ぺ", romaji: "pe" }, { symbol: "ぽ", romaji: "po" }] }
-  ]
+    {
+      id: 'vowels',
+      label: 'Vowels',
+      items: [
+        { symbol: 'あ', romaji: 'a' },
+        { symbol: 'い', romaji: 'i' },
+        { symbol: 'う', romaji: 'u' },
+        { symbol: 'え', romaji: 'e' },
+        { symbol: 'お', romaji: 'o' },
+      ],
+    },
+    {
+      id: 'k',
+      label: 'K set',
+      items: [
+        { symbol: 'か', romaji: 'ka' },
+        { symbol: 'き', romaji: 'ki' },
+        { symbol: 'く', romaji: 'ku' },
+        { symbol: 'け', romaji: 'ke' },
+        { symbol: 'こ', romaji: 'ko' },
+      ],
+    },
+    {
+      id: 's',
+      label: 'S set',
+      items: [
+        { symbol: 'さ', romaji: 'sa' },
+        { symbol: 'し', romaji: 'shi' },
+        { symbol: 'す', romaji: 'su' },
+        { symbol: 'せ', romaji: 'se' },
+        { symbol: 'そ', romaji: 'so' },
+      ],
+    },
+    {
+      id: 't',
+      label: 'T set',
+      items: [
+        { symbol: 'た', romaji: 'ta' },
+        { symbol: 'ち', romaji: 'chi' },
+        { symbol: 'つ', romaji: 'tsu' },
+        { symbol: 'て', romaji: 'te' },
+        { symbol: 'と', romaji: 'to' },
+      ],
+    },
+    {
+      id: 'n',
+      label: 'N set',
+      items: [
+        { symbol: 'な', romaji: 'na' },
+        { symbol: 'に', romaji: 'ni' },
+        { symbol: 'ぬ', romaji: 'nu' },
+        { symbol: 'ね', romaji: 'ne' },
+        { symbol: 'の', romaji: 'no' },
+      ],
+    },
+    {
+      id: 'h',
+      label: 'H set',
+      items: [
+        { symbol: 'は', romaji: 'ha' },
+        { symbol: 'ひ', romaji: 'hi' },
+        { symbol: 'ふ', romaji: 'fu' },
+        { symbol: 'へ', romaji: 'he' },
+        { symbol: 'ほ', romaji: 'ho' },
+      ],
+    },
+    {
+      id: 'm',
+      label: 'M set',
+      items: [
+        { symbol: 'ま', romaji: 'ma' },
+        { symbol: 'み', romaji: 'mi' },
+        { symbol: 'む', romaji: 'mu' },
+        { symbol: 'め', romaji: 'me' },
+        { symbol: 'も', romaji: 'mo' },
+      ],
+    },
+    {
+      id: 'y',
+      label: 'Y set',
+      items: [
+        { symbol: 'や', romaji: 'ya' },
+        { symbol: 'ゆ', romaji: 'yu' },
+        { symbol: 'よ', romaji: 'yo' },
+      ],
+    },
+    {
+      id: 'r',
+      label: 'R set',
+      items: [
+        { symbol: 'ら', romaji: 'ra' },
+        { symbol: 'り', romaji: 'ri' },
+        { symbol: 'る', romaji: 'ru' },
+        { symbol: 'れ', romaji: 're' },
+        { symbol: 'ろ', romaji: 'ro' },
+      ],
+    },
+    {
+      id: 'w',
+      label: 'W set',
+      items: [
+        { symbol: 'わ', romaji: 'wa' },
+        { symbol: 'を', romaji: 'wo' },
+        { symbol: 'ん', romaji: 'n' },
+      ],
+    },
+    {
+      id: 'dakuten',
+      label: 'Dakuten',
+      items: [
+        { symbol: 'が', romaji: 'ga' },
+        { symbol: 'ぎ', romaji: 'gi' },
+        { symbol: 'ぐ', romaji: 'gu' },
+        { symbol: 'げ', romaji: 'ge' },
+        { symbol: 'ご', romaji: 'go' },
+        { symbol: 'ざ', romaji: 'za' },
+        { symbol: 'じ', romaji: 'ji' },
+        { symbol: 'ず', romaji: 'zu' },
+        { symbol: 'ぜ', romaji: 'ze' },
+        { symbol: 'ぞ', romaji: 'zo' },
+        { symbol: 'だ', romaji: 'da' },
+        { symbol: 'ぢ', romaji: 'ji' },
+        { symbol: 'づ', romaji: 'zu' },
+        { symbol: 'で', romaji: 'de' },
+        { symbol: 'ど', romaji: 'do' },
+        { symbol: 'ば', romaji: 'ba' },
+        { symbol: 'び', romaji: 'bi' },
+        { symbol: 'ぶ', romaji: 'bu' },
+        { symbol: 'べ', romaji: 'be' },
+        { symbol: 'ぼ', romaji: 'bo' },
+      ],
+    },
+    {
+      id: 'handakuten',
+      label: 'Handakuten',
+      items: [
+        { symbol: 'ぱ', romaji: 'pa' },
+        { symbol: 'ぴ', romaji: 'pi' },
+        { symbol: 'ぷ', romaji: 'pu' },
+        { symbol: 'ぺ', romaji: 'pe' },
+        { symbol: 'ぽ', romaji: 'po' },
+      ],
+    },
+  ],
 };
 
-const scoreKey = "hiraganaFlashCardsScore";
-const bestScoreKey = "hiraganaFlashCardsBestScore";
-const settingsKey = "hiraganaFlashCardsSettings";
-const soundEnabledKey = "hiraganaFlashCardsSoundEnabled";
+const scoreKey = 'hiraganaFlashCardsScore';
+const bestScoreKey = 'hiraganaFlashCardsBestScore';
+const settingsKey = 'hiraganaFlashCardsSettings';
+const soundEnabledKey = 'hiraganaFlashCardsSoundEnabled';
 
 const elements = {
-  form: document.querySelector("#settings-form"),
-  startButton: document.querySelector("#start-button"),
-  setOptions: document.querySelector("#set-options"),
-  quizArea: document.querySelector("#quiz-area"),
-  symbolText: document.querySelector("#symbol-text"),
-  choices: document.querySelector("#choices"),
-  answerForm: document.querySelector("#answer-form"),
-  answerInput: document.querySelector("#answer-input"),
-  answerSubmitButton: document.querySelector("#answer-submit-button"),
-  answerResult: document.querySelector("#answer-result"),
-  toggleAllButton: document.querySelector("#toggle-all-button"),
-  nextButton: document.querySelector("#next-button"),
-  changeSettingsButton: document.querySelector("#change-settings-button"),
-  resetScoreButton: document.querySelector("#reset-score-button"),
-  soundToggleButton: document.querySelector("#sound-toggle-button"),
-  scoreText: document.querySelector("#score-text"),
-  accuracyText: document.querySelector("#accuracy-text"),
-  bestScoreText: document.querySelector("#best-score-text"),
-  symbolsList: document.querySelector("#symbols-list")
+  form: document.querySelector('#settings-form'),
+  startButton: document.querySelector('#start-button'),
+  setOptions: document.querySelector('#set-options'),
+  quizArea: document.querySelector('#quiz-area'),
+  symbolText: document.querySelector('#symbol-text'),
+  choices: document.querySelector('#choices'),
+  answerForm: document.querySelector('#answer-form'),
+  answerInput: document.querySelector('#answer-input'),
+  answerSubmitButton: document.querySelector('#answer-submit-button'),
+  answerResult: document.querySelector('#answer-result'),
+  toggleAllButton: document.querySelector('#toggle-all-button'),
+  nextButton: document.querySelector('#next-button'),
+  changeSettingsButton: document.querySelector('#change-settings-button'),
+  resetScoreButton: document.querySelector('#reset-score-button'),
+  soundToggleButton: document.querySelector('#sound-toggle-button'),
+  scoreText: document.querySelector('#score-text'),
+  accuracyText: document.querySelector('#accuracy-text'),
+  bestScoreText: document.querySelector('#best-score-text'),
+  symbolsList: document.querySelector('#symbols-list'),
 };
 
 const state = {
   data: fallbackData,
   activeItems: [],
-  currentAnswer: "",
+  shuffledQueue: [],
+  queueIndex: 0,
+  currentAnswer: '',
   answered: false,
   sounds: {
-    correct: new Audio("audio/correct.mp3"),
-    incorrect: new Audio("audio/incorrect.mp3")
+    correct: new Audio('audio/correct.mp3'),
+    incorrect: new Audio('audio/incorrect.mp3'),
   },
   soundEnabled: loadSoundEnabled(),
-  cardType: "choices",
+  cardType: 'choices',
   score: loadScore(),
-  bestScore: loadBestScore()
+  bestScore: loadBestScore(),
 };
 
-const desktopQuery = window.matchMedia("(min-width: 768px)");
+const desktopQuery = window.matchMedia('(min-width: 768px)');
 
 init();
 
@@ -76,8 +209,8 @@ async function init() {
 
 async function loadData() {
   try {
-    const response = await fetch("hiragana.json", { cache: "no-store" });
-    if (!response.ok) throw new Error("Unable to load hiragana.json");
+    const response = await fetch('hiragana.json', { cache: 'no-store' });
+    if (!response.ok) throw new Error('Unable to load hiragana.json');
     return await response.json();
   } catch {
     return fallbackData;
@@ -85,43 +218,43 @@ async function loadData() {
 }
 
 function bindEvents() {
-  elements.form.addEventListener("submit", (event) => {
+  elements.form.addEventListener('submit', (event) => {
     event.preventDefault();
     startQuiz();
   });
 
-  elements.form.addEventListener("change", updateStartButtonState);
+  elements.form.addEventListener('change', updateStartButtonState);
 
-  elements.nextButton.addEventListener("click", showNextCard);
+  elements.nextButton.addEventListener('click', showNextCard);
 
-  elements.answerForm.addEventListener("submit", (event) => {
+  elements.answerForm.addEventListener('submit', (event) => {
     event.preventDefault();
     handleInputAnswer();
   });
 
-  elements.toggleAllButton.addEventListener("click", toggleAllSets);
+  elements.toggleAllButton.addEventListener('click', toggleAllSets);
 
-  elements.changeSettingsButton.addEventListener("click", () => {
+  elements.changeSettingsButton.addEventListener('click', () => {
     if (!desktopQuery.matches) elements.quizArea.hidden = true;
     elements.form.hidden = false;
-    elements.form.scrollIntoView({ behavior: "smooth", block: "start" });
+    elements.form.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
-  elements.resetScoreButton.addEventListener("click", () => {
+  elements.resetScoreButton.addEventListener('click', () => {
     state.score = { correct: 0, attempts: 0 };
     saveScore();
     renderScore();
   });
 
-  elements.soundToggleButton.addEventListener("click", () => {
+  elements.soundToggleButton.addEventListener('click', () => {
     state.soundEnabled = !state.soundEnabled;
     saveSoundEnabled();
     renderSoundToggle();
   });
 
-  document.addEventListener("keydown", (event) => {
+  document.addEventListener('keydown', (event) => {
     if (
-      event.key === "Enter" &&
+      event.key === 'Enter' &&
       state.answered &&
       !elements.quizArea.hidden &&
       event.target !== elements.nextButton
@@ -131,7 +264,7 @@ function bindEvents() {
     }
   });
 
-  desktopQuery.addEventListener("change", syncResponsivePanels);
+  desktopQuery.addEventListener('change', syncResponsivePanels);
 }
 
 function syncResponsivePanels() {
@@ -141,11 +274,11 @@ function syncResponsivePanels() {
 }
 
 function renderSetOptions() {
-  elements.setOptions.innerHTML = "";
+  elements.setOptions.innerHTML = '';
 
   state.data.sets.forEach((set) => {
-    const label = document.createElement("label");
-    label.className = "check-tile";
+    const label = document.createElement('label');
+    label.className = 'check-tile';
     label.innerHTML = `
       <input type="checkbox" name="sets" value="${set.id}">
       <span>${set.label}</span>
@@ -155,28 +288,28 @@ function renderSetOptions() {
 }
 
 function renderSymbolsPanel() {
-  elements.symbolsList.innerHTML = "";
+  elements.symbolsList.innerHTML = '';
 
   state.data.sets.forEach((set) => {
-    const section = document.createElement("section");
-    section.className = "symbol-set";
+    const section = document.createElement('section');
+    section.className = 'symbol-set';
 
-    const heading = document.createElement("h3");
+    const heading = document.createElement('h3');
     heading.textContent = set.label;
 
-    const grid = document.createElement("div");
-    grid.className = "symbol-grid";
+    const grid = document.createElement('div');
+    grid.className = 'symbol-grid';
 
     set.items.forEach((item) => {
-      const tile = document.createElement("div");
-      tile.className = "symbol-tile";
+      const tile = document.createElement('div');
+      tile.className = 'symbol-tile';
 
-      const symbol = document.createElement("span");
-      symbol.className = "symbol-glyph";
+      const symbol = document.createElement('span');
+      symbol.className = 'symbol-glyph';
       symbol.textContent = item.symbol;
 
-      const romaji = document.createElement("span");
-      romaji.className = "symbol-romaji";
+      const romaji = document.createElement('span');
+      romaji.className = 'symbol-romaji';
       romaji.textContent = item.romaji;
 
       tile.append(symbol, romaji);
@@ -204,7 +337,7 @@ function updateStartButtonState() {
 }
 
 function restoreSettings() {
-  const saved = JSON.parse(localStorage.getItem(settingsKey) || "null");
+  const saved = JSON.parse(localStorage.getItem(settingsKey) || 'null');
   if (!saved) return;
 
   if (Array.isArray(saved.sets)) {
@@ -213,10 +346,14 @@ function restoreSettings() {
     });
   }
 
-  const cardSize = document.querySelector(`input[name='card-size'][value='${saved.cardSize}']`);
+  const cardSize = document.querySelector(
+    `input[name='card-size'][value='${saved.cardSize}']`,
+  );
   if (cardSize) cardSize.checked = true;
 
-  const cardType = document.querySelector(`input[name='card-type'][value='${saved.type}']`);
+  const cardType = document.querySelector(
+    `input[name='card-type'][value='${saved.type}']`,
+  );
   if (cardType) cardType.checked = true;
 }
 
@@ -231,8 +368,15 @@ function startQuiz() {
     return;
   }
 
+  // New: Shuffle all active items once when the quiz starts
+  state.shuffledQueue = shuffle([...state.activeItems]);
+  state.queueIndex = 0;
+
   state.cardType = cardType;
-  localStorage.setItem(settingsKey, JSON.stringify({ sets: selectedSets, cardSize, type: cardType }));
+  localStorage.setItem(
+    settingsKey,
+    JSON.stringify({ sets: selectedSets, cardSize, type: cardType }),
+  );
   elements.form.hidden = desktopQuery.matches ? false : true;
   elements.quizArea.hidden = false;
   showNextCard();
@@ -240,25 +384,40 @@ function startQuiz() {
 
 function showNextCard() {
   const cardSize = getSelectedCardSize();
-  const cardItems = pickMany(state.activeItems, cardSize);
-  state.currentAnswer = cardItems.map((item) => item.romaji).join(" ");
+
+  // If we don't have enough items left in the queue, re-shuffle a fresh batch
+  if (state.queueIndex + cardSize > state.shuffledQueue.length) {
+    state.shuffledQueue = shuffle([...state.activeItems]);
+    state.queueIndex = 0;
+  }
+
+  // Grab the next chunk from our fixed sequence
+  const cardItems = state.shuffledQueue.slice(
+    state.queueIndex,
+    state.queueIndex + cardSize,
+  );
+  state.queueIndex += cardSize;
+
+  state.currentAnswer = cardItems.map((item) => item.romaji).join(' ');
   state.answered = false;
 
-  elements.symbolText.textContent = cardItems.map((item) => item.symbol).join("");
+  elements.symbolText.textContent = cardItems
+    .map((item) => item.symbol)
+    .join('');
   elements.nextButton.disabled = true;
   renderAnswerMode(cardItems, cardSize);
 }
 
 function renderAnswerMode(cardItems, cardSize) {
-  const isInput = state.cardType === "input";
+  const isInput = state.cardType === 'input';
   elements.choices.hidden = isInput;
   elements.answerForm.hidden = !isInput;
-  elements.answerResult.textContent = "";
+  elements.answerResult.textContent = '';
   elements.answerResult.hidden = true;
-  elements.answerInput.classList.remove("correct", "incorrect");
+  elements.answerInput.classList.remove('correct', 'incorrect');
 
   if (isInput) {
-    elements.answerInput.value = "";
+    elements.answerInput.value = '';
     elements.answerInput.disabled = false;
     elements.answerSubmitButton.disabled = false;
     elements.answerInput.focus();
@@ -269,23 +428,25 @@ function renderAnswerMode(cardItems, cardSize) {
 }
 
 function renderChoices(cardItems, cardSize) {
-  const correct = cardItems.map((item) => item.romaji).join(" ");
+  const correct = cardItems.map((item) => item.romaji).join(' ');
   const choices = new Set([correct]);
   let attempts = 0;
 
   while (choices.size < 4 && attempts < 120) {
-    const distractor = pickMany(state.activeItems, cardSize).map((item) => item.romaji).join(" ");
+    const distractor = pickMany(state.activeItems, cardSize)
+      .map((item) => item.romaji)
+      .join(' ');
     choices.add(distractor);
     attempts += 1;
   }
 
-  elements.choices.innerHTML = "";
+  elements.choices.innerHTML = '';
   shuffle(Array.from(choices)).forEach((choice) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "choice-button";
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'choice-button';
     button.textContent = choice;
-    button.addEventListener("click", () => handleChoice(button, choice));
+    button.addEventListener('click', () => handleChoice(button, choice));
     elements.choices.append(button);
   });
 }
@@ -303,14 +464,14 @@ function handleChoice(button, choice) {
   saveScore();
   renderScore();
 
-  document.querySelectorAll(".choice-button").forEach((choiceButton) => {
+  document.querySelectorAll('.choice-button').forEach((choiceButton) => {
     choiceButton.disabled = true;
     if (choiceButton.textContent === state.currentAnswer) {
-      choiceButton.classList.add("correct");
+      choiceButton.classList.add('correct');
     }
   });
 
-  if (!isCorrect) button.classList.add("incorrect");
+  if (!isCorrect) button.classList.add('incorrect');
   elements.nextButton.disabled = false;
 }
 
@@ -332,15 +493,15 @@ function handleInputAnswer() {
 
   elements.answerInput.disabled = true;
   elements.answerSubmitButton.disabled = true;
-  elements.answerInput.classList.add(isCorrect ? "correct" : "incorrect");
+  elements.answerInput.classList.add(isCorrect ? 'correct' : 'incorrect');
   elements.answerResult.textContent = `Correct answer: ${state.currentAnswer}`;
-  elements.answerResult.className = `answer-result ${isCorrect ? "correct" : "incorrect"}`;
+  elements.answerResult.className = `answer-result ${isCorrect ? 'correct' : 'incorrect'}`;
   elements.answerResult.hidden = false;
   elements.nextButton.disabled = false;
 }
 
 function normalizeAnswer(answer) {
-  return answer.toLowerCase().replace(/\s+/g, "");
+  return answer.toLowerCase().replace(/\s+/g, '');
 }
 
 function playAnswerSound(isCorrect) {
@@ -352,7 +513,7 @@ function playAnswerSound(isCorrect) {
 }
 
 function loadSoundEnabled() {
-  return localStorage.getItem(soundEnabledKey) !== "false";
+  return localStorage.getItem(soundEnabledKey) !== 'false';
 }
 
 function saveSoundEnabled() {
@@ -360,12 +521,19 @@ function saveSoundEnabled() {
 }
 
 function renderSoundToggle() {
-  elements.soundToggleButton.textContent = state.soundEnabled ? "Sound On" : "Sound Off";
-  elements.soundToggleButton.setAttribute("aria-pressed", String(state.soundEnabled));
+  elements.soundToggleButton.textContent = state.soundEnabled
+    ? 'Sound On'
+    : 'Sound Off';
+  elements.soundToggleButton.setAttribute(
+    'aria-pressed',
+    String(state.soundEnabled),
+  );
 }
 
 function loadScore() {
-  return JSON.parse(localStorage.getItem(scoreKey) || '{"correct":0,"attempts":0}');
+  return JSON.parse(
+    localStorage.getItem(scoreKey) || '{"correct":0,"attempts":0}',
+  );
 }
 
 function loadBestScore() {
@@ -403,17 +571,23 @@ function getSelectedItems() {
 }
 
 function getSelectedSetIds() {
-  return Array.from(document.querySelectorAll("input[name='sets']:checked")).map((input) => input.value);
+  return Array.from(
+    document.querySelectorAll("input[name='sets']:checked"),
+  ).map((input) => input.value);
 }
 
 function getSelectedCardSize() {
-  const selectedCardSize = document.querySelector("input[name='card-size']:checked");
+  const selectedCardSize = document.querySelector(
+    "input[name='card-size']:checked",
+  );
   return selectedCardSize ? Number(selectedCardSize.value) : 0;
 }
 
 function getSelectedCardType() {
-  const selectedCardType = document.querySelector("input[name='card-type']:checked");
-  return selectedCardType ? selectedCardType.value : "choices";
+  const selectedCardType = document.querySelector(
+    "input[name='card-type']:checked",
+  );
+  return selectedCardType ? selectedCardType.value : 'choices';
 }
 
 function pickMany(items, count) {
