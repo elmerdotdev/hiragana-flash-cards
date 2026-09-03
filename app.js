@@ -16,6 +16,7 @@ const fallbackData = {
 };
 
 const scoreKey = "hiraganaFlashCardsScore";
+const bestScoreKey = "hiraganaFlashCardsBestScore";
 const settingsKey = "hiraganaFlashCardsSettings";
 const soundEnabledKey = "hiraganaFlashCardsSoundEnabled";
 
@@ -26,13 +27,18 @@ const elements = {
   quizArea: document.querySelector("#quiz-area"),
   symbolText: document.querySelector("#symbol-text"),
   choices: document.querySelector("#choices"),
+  answerForm: document.querySelector("#answer-form"),
+  answerInput: document.querySelector("#answer-input"),
+  answerSubmitButton: document.querySelector("#answer-submit-button"),
+  answerResult: document.querySelector("#answer-result"),
   toggleAllButton: document.querySelector("#toggle-all-button"),
   nextButton: document.querySelector("#next-button"),
   changeSettingsButton: document.querySelector("#change-settings-button"),
   resetScoreButton: document.querySelector("#reset-score-button"),
   soundToggleButton: document.querySelector("#sound-toggle-button"),
   scoreText: document.querySelector("#score-text"),
-  accuracyText: document.querySelector("#accuracy-text")
+  accuracyText: document.querySelector("#accuracy-text"),
+  bestScoreText: document.querySelector("#best-score-text")
 };
 
 const state = {
@@ -45,7 +51,9 @@ const state = {
     incorrect: new Audio("audio/incorrect.mp3")
   },
   soundEnabled: loadSoundEnabled(),
-  score: loadScore()
+  cardType: "choices",
+  score: loadScore(),
+  bestScore: loadBestScore()
 };
 
 const desktopQuery = window.matchMedia("(min-width: 768px)");
@@ -56,6 +64,8 @@ async function init() {
   state.data = await loadData();
   renderSetOptions();
   restoreSettings();
+  state.bestScore = Math.max(state.bestScore, state.score.correct);
+  saveBestScore();
   renderScore();
   renderSoundToggle();
   bindEvents();
@@ -82,6 +92,11 @@ function bindEvents() {
 
   elements.nextButton.addEventListener("click", showNextCard);
 
+  elements.answerForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    handleInputAnswer();
+  });
+
   elements.toggleAllButton.addEventListener("click", toggleAllSets);
 
   elements.changeSettingsButton.addEventListener("click", () => {
@@ -100,6 +115,18 @@ function bindEvents() {
     state.soundEnabled = !state.soundEnabled;
     saveSoundEnabled();
     renderSoundToggle();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (
+      event.key === "Enter" &&
+      state.answered &&
+      !elements.quizArea.hidden &&
+      event.target !== elements.nextButton
+    ) {
+      event.preventDefault();
+      showNextCard();
+    }
   });
 
   desktopQuery.addEventListener("change", syncResponsivePanels);
@@ -152,11 +179,15 @@ function restoreSettings() {
 
   const cardSize = document.querySelector(`input[name='card-size'][value='${saved.cardSize}']`);
   if (cardSize) cardSize.checked = true;
+
+  const cardType = document.querySelector(`input[name='card-type'][value='${saved.type}']`);
+  if (cardType) cardType.checked = true;
 }
 
 function startQuiz() {
   const cardSize = getSelectedCardSize();
   const selectedSets = getSelectedSetIds();
+  const cardType = getSelectedCardType();
   state.activeItems = getSelectedItems();
 
   if (!cardSize || state.activeItems.length < cardSize) {
@@ -164,7 +195,8 @@ function startQuiz() {
     return;
   }
 
-  localStorage.setItem(settingsKey, JSON.stringify({ sets: selectedSets, cardSize }));
+  state.cardType = cardType;
+  localStorage.setItem(settingsKey, JSON.stringify({ sets: selectedSets, cardSize, type: cardType }));
   elements.form.hidden = desktopQuery.matches ? false : true;
   elements.quizArea.hidden = false;
   showNextCard();
@@ -178,6 +210,25 @@ function showNextCard() {
 
   elements.symbolText.textContent = cardItems.map((item) => item.symbol).join("");
   elements.nextButton.disabled = true;
+  renderAnswerMode(cardItems, cardSize);
+}
+
+function renderAnswerMode(cardItems, cardSize) {
+  const isInput = state.cardType === "input";
+  elements.choices.hidden = isInput;
+  elements.answerForm.hidden = !isInput;
+  elements.answerResult.textContent = "";
+  elements.answerResult.hidden = true;
+  elements.answerInput.classList.remove("correct", "incorrect");
+
+  if (isInput) {
+    elements.answerInput.value = "";
+    elements.answerInput.disabled = false;
+    elements.answerSubmitButton.disabled = false;
+    elements.answerInput.focus();
+    return;
+  }
+
   renderChoices(cardItems, cardSize);
 }
 
@@ -210,6 +261,7 @@ function handleChoice(button, choice) {
   const isCorrect = choice === state.currentAnswer;
   state.score.attempts += 1;
   if (isCorrect) state.score.correct += 1;
+  updateBestScore();
 
   playAnswerSound(isCorrect);
   saveScore();
@@ -224,6 +276,35 @@ function handleChoice(button, choice) {
 
   if (!isCorrect) button.classList.add("incorrect");
   elements.nextButton.disabled = false;
+}
+
+function handleInputAnswer() {
+  if (state.answered) return;
+
+  const answer = normalizeAnswer(elements.answerInput.value);
+  if (!answer) return;
+
+  state.answered = true;
+  const isCorrect = answer === normalizeAnswer(state.currentAnswer);
+  state.score.attempts += 1;
+  if (isCorrect) state.score.correct += 1;
+  updateBestScore();
+
+  playAnswerSound(isCorrect);
+  saveScore();
+  renderScore();
+
+  elements.answerInput.disabled = true;
+  elements.answerSubmitButton.disabled = true;
+  elements.answerInput.classList.add(isCorrect ? "correct" : "incorrect");
+  elements.answerResult.textContent = `Correct answer: ${state.currentAnswer}`;
+  elements.answerResult.className = `answer-result ${isCorrect ? "correct" : "incorrect"}`;
+  elements.answerResult.hidden = false;
+  elements.nextButton.disabled = false;
+}
+
+function normalizeAnswer(answer) {
+  return answer.toLowerCase().replace(/\s+/g, "");
 }
 
 function playAnswerSound(isCorrect) {
@@ -251,8 +332,23 @@ function loadScore() {
   return JSON.parse(localStorage.getItem(scoreKey) || '{"correct":0,"attempts":0}');
 }
 
+function loadBestScore() {
+  return Number(localStorage.getItem(bestScoreKey) || 0);
+}
+
 function saveScore() {
   localStorage.setItem(scoreKey, JSON.stringify(state.score));
+}
+
+function saveBestScore() {
+  localStorage.setItem(bestScoreKey, String(state.bestScore));
+}
+
+function updateBestScore() {
+  if (state.score.correct > state.bestScore) {
+    state.bestScore = state.score.correct;
+    saveBestScore();
+  }
 }
 
 function renderScore() {
@@ -260,6 +356,7 @@ function renderScore() {
   const accuracy = attempts ? Math.round((correct / attempts) * 100) : 0;
   elements.scoreText.textContent = `${correct} / ${attempts}`;
   elements.accuracyText.textContent = `${accuracy}%`;
+  elements.bestScoreText.textContent = state.bestScore;
 }
 
 function getSelectedItems() {
@@ -276,6 +373,11 @@ function getSelectedSetIds() {
 function getSelectedCardSize() {
   const selectedCardSize = document.querySelector("input[name='card-size']:checked");
   return selectedCardSize ? Number(selectedCardSize.value) : 0;
+}
+
+function getSelectedCardType() {
+  const selectedCardType = document.querySelector("input[name='card-type']:checked");
+  return selectedCardType ? selectedCardType.value : "choices";
 }
 
 function pickMany(items, count) {

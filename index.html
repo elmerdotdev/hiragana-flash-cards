@@ -49,6 +49,25 @@
               </div>
             </fieldset>
 
+            <fieldset>
+              <legend>Type</legend>
+              <div class="segmented-control type-control">
+                <label>
+                  <input
+                    type="radio"
+                    name="card-type"
+                    value="choices"
+                    checked
+                  />
+                  <span>Choices</span>
+                </label>
+                <label>
+                  <input type="radio" name="card-type" value="input" />
+                  <span>Input</span>
+                </label>
+              </div>
+            </fieldset>
+
             <div class="toolbar">
               <button
                 type="submit"
@@ -82,6 +101,7 @@
             <div class="score-readout">
               <span id="score-text">0 / 0</span>
               <small id="accuracy-text">0%</small>
+              <small>Best score: <strong id="best-score-text">0</strong></small>
             </div>
           </div>
 
@@ -91,6 +111,33 @@
             </div>
 
             <div id="choices" class="choices" role="list"></div>
+
+            <form id="answer-form" class="answer-form" hidden>
+              <label class="sr-only" for="answer-input">Type your answer</label>
+              <div class="answer-controls">
+                <input
+                  id="answer-input"
+                  class="answer-input"
+                  type="text"
+                  autocomplete="off"
+                  autocapitalize="none"
+                  spellcheck="false"
+                  placeholder="Type the romaji answer"
+                />
+                <button
+                  type="submit"
+                  id="answer-submit-button"
+                  class="primary-button"
+                >
+                  Submit
+                </button>
+              </div>
+              <output
+                id="answer-result"
+                class="answer-result"
+                aria-live="polite"
+              ></output>
+            </form>
 
             <div class="toolbar quiz-toolbar">
               <button

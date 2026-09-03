@@ -19,6 +19,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -110,6 +114,7 @@ h1 {
 }
 
 .score-box small {
+  display: block;
   color: var(--muted);
 }
 
@@ -211,6 +216,10 @@ legend:not(.sr-only) {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
+}
+
+.type-control {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .segmented-control input {
@@ -346,6 +355,58 @@ button:disabled {
   color: var(--wrong);
 }
 
+.answer-form {
+  display: grid;
+  gap: 10px;
+}
+
+.answer-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+}
+
+.answer-input {
+  min-width: 0;
+  min-height: 58px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 16px;
+  color: var(--text);
+  background: #fff;
+  outline: none;
+}
+
+.answer-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(23, 108, 114, 0.14);
+}
+
+.answer-input.correct {
+  border-color: var(--right);
+  background: var(--right-soft);
+  color: var(--right);
+}
+
+.answer-input.incorrect {
+  border-color: var(--wrong);
+  background: var(--wrong-soft);
+  color: var(--wrong);
+}
+
+.answer-result {
+  min-height: 24px;
+  font-weight: 800;
+}
+
+.answer-result.correct {
+  color: var(--right);
+}
+
+.answer-result.incorrect {
+  color: var(--wrong);
+}
+
 .quiz-toolbar {
   justify-content: space-between;
 }
@@ -363,7 +424,7 @@ button:disabled {
   }
 
   h1 {
-    font-size: clamp(3rem, 5vw, 5.2rem);
+    font-size: clamp(3rem, 4vw, 5.2rem);
   }
 
   .set-grid {
@@ -372,6 +433,10 @@ button:disabled {
 
   .segmented-control {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .type-control {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .flashcard {
@@ -399,6 +464,14 @@ button:disabled {
 
   .segmented-control,
   .choices {
+    grid-template-columns: 1fr;
+  }
+
+  .type-control {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .answer-controls {
     grid-template-columns: 1fr;
   }
 
