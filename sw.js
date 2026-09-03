@@ -1,12 +1,17 @@
-const CACHE_NAME = 'hiragana-pwa-v1';
+const CACHE_NAME = 'hiragana-pwa-v2';
 const ASSETS_TO_CACHE = [
   './index.html',
   './styles.css',
   './app.js',
+  './hiragana.json',
   './site.webmanifest',
-  './icons/favicon-16x16.png',
-  './icons/favicon-32x32.png',
+  './icons/android-chrome-192x192.png',
+  './icons/android-chrome-512x512.png',
   './icons/apple-touch-icon.png',
+  './icons/favicon-32x32.png',
+  './icons/favicon-16x16.png',
+  './audio/correct.mp3',
+  './audio/incorrect.mp3',
 ];
 
 self.addEventListener('install', (event) => {
@@ -33,7 +38,6 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// Fetch event: serve assets from cache first, fall back to network
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
