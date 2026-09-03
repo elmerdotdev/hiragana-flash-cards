@@ -508,7 +508,7 @@ button:disabled {
   }
 
   .symbol-text {
-    font-size: clamp(5.5rem, 7vw, 10rem);
+    font-size: clamp(5.5rem, 7vw, 7rem);
   }
 }
 
