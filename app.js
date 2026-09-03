@@ -369,7 +369,6 @@ function startQuiz() {
     return;
   }
 
-  // Generate initial queue with no repeat from any prior state
   state.shuffledQueue = getSmartShuffle(state.activeItems, null);
   state.queueIndex = 0;
   state.lastCardItems = null;
@@ -387,7 +386,6 @@ function startQuiz() {
 function showNextCard() {
   const cardSize = getSelectedCardSize();
 
-  // If we run out of items, reshuffle while avoiding repeating the last card shown
   if (state.queueIndex + cardSize > state.shuffledQueue.length) {
     state.shuffledQueue = getSmartShuffle(
       state.activeItems,
@@ -402,7 +400,6 @@ function showNextCard() {
   );
   state.queueIndex += cardSize;
 
-  // Remember this batch for the next boundary check
   state.lastCardItems = cardItems;
 
   state.currentAnswer = cardItems.map((item) => item.romaji).join(' ');
@@ -418,7 +415,6 @@ function showNextCard() {
 function getSmartShuffle(items, previousLastItems) {
   let shuffled = shuffle([...items]);
 
-  // If we have a previous batch and more than 1 item, prevent the first item from matching
   if (
     previousLastItems &&
     previousLastItems.length > 0 &&
@@ -429,7 +425,6 @@ function getSmartShuffle(items, previousLastItems) {
       previousLastItems[previousLastItems.length - 1].symbol;
 
     if (firstCurrentSymbol === lastPreviousSymbol) {
-      // Swap the first element with a random element further down the queue
       const swapIndex = Math.floor(Math.random() * (shuffled.length - 1)) + 1;
       [shuffled[0], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[0]];
     }
