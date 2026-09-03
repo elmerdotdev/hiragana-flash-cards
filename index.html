@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hiragana Flash Cards</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="quiz-panel" aria-labelledby="app-title">
+        <div class="left-column">
+          <header class="app-header">
+            <!-- <p class="eyebrow">Offline Hiragana Quiz</p> -->
+            <h1 id="app-title">Hiragana Flash Cards</h1>
+          </header>
+
+          <form id="settings-form" class="settings">
+            <fieldset>
+              <legend class="sr-only">Symbol sets</legend>
+              <div class="fieldset-heading">
+                <span class="fieldset-title">Symbol sets</span>
+                <button
+                  type="button"
+                  id="toggle-all-button"
+                  class="text-button"
+                >
+                  Toggle All
+                </button>
+              </div>
+              <div id="set-options" class="set-grid"></div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Card size</legend>
+              <div class="segmented-control">
+                <label>
+                  <input type="radio" name="card-size" value="1" checked />
+                  <span>1</span>
+                </label>
+                <label>
+                  <input type="radio" name="card-size" value="3" />
+                  <span>3</span>
+                </label>
+                <label>
+                  <input type="radio" name="card-size" value="4" />
+                  <span>4</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="toolbar">
+              <button
+                type="submit"
+                id="start-button"
+                class="primary-button"
+                disabled
+              >
+                Start Quiz
+              </button>
+              <button
+                type="button"
+                id="reset-score-button"
+                class="secondary-button"
+              >
+                Reset Score
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="right-column">
+          <div class="score-box" aria-live="polite">
+            <button
+              type="button"
+              id="sound-toggle-button"
+              class="sound-toggle-button"
+              aria-pressed="true"
+            >
+              Sound On
+            </button>
+            <div class="score-readout">
+              <span id="score-text">0 / 0</span>
+              <small id="accuracy-text">0%</small>
+            </div>
+          </div>
+
+          <section id="quiz-area" class="quiz-area" hidden>
+            <div class="flashcard" aria-live="polite">
+              <div id="symbol-text" class="symbol-text">あ</div>
+            </div>
+
+            <div id="choices" class="choices" role="list"></div>
+
+            <div class="toolbar quiz-toolbar">
+              <button
+                type="button"
+                id="next-button"
+                class="primary-button"
+                disabled
+              >
+                Next Card
+              </button>
+              <button
+                type="button"
+                id="change-settings-button"
+                class="secondary-button"
+              >
+                Change Sets
+              </button>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
