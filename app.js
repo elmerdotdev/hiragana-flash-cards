@@ -178,6 +178,7 @@ const state = {
   activeItems: [],
   shuffledQueue: [],
   queueIndex: 0,
+  lastCardItems: null,
   currentAnswer: '',
   answered: false,
   sounds: {
@@ -368,9 +369,10 @@ function startQuiz() {
     return;
   }
 
-  // New: Shuffle all active items once when the quiz starts
-  state.shuffledQueue = shuffle([...state.activeItems]);
+  // Generate initial queue with no repeat from any prior state
+  state.shuffledQueue = getSmartShuffle(state.activeItems, null);
   state.queueIndex = 0;
+  state.lastCardItems = null;
 
   state.cardType = cardType;
   localStorage.setItem(
@@ -385,18 +387,23 @@ function startQuiz() {
 function showNextCard() {
   const cardSize = getSelectedCardSize();
 
-  // If we don't have enough items left in the queue, re-shuffle a fresh batch
+  // If we run out of items, reshuffle while avoiding repeating the last card shown
   if (state.queueIndex + cardSize > state.shuffledQueue.length) {
-    state.shuffledQueue = shuffle([...state.activeItems]);
+    state.shuffledQueue = getSmartShuffle(
+      state.activeItems,
+      state.lastCardItems,
+    );
     state.queueIndex = 0;
   }
 
-  // Grab the next chunk from our fixed sequence
   const cardItems = state.shuffledQueue.slice(
     state.queueIndex,
     state.queueIndex + cardSize,
   );
   state.queueIndex += cardSize;
+
+  // Remember this batch for the next boundary check
+  state.lastCardItems = cardItems;
 
   state.currentAnswer = cardItems.map((item) => item.romaji).join(' ');
   state.answered = false;
@@ -406,6 +413,29 @@ function showNextCard() {
     .join('');
   elements.nextButton.disabled = true;
   renderAnswerMode(cardItems, cardSize);
+}
+
+function getSmartShuffle(items, previousLastItems) {
+  let shuffled = shuffle([...items]);
+
+  // If we have a previous batch and more than 1 item, prevent the first item from matching
+  if (
+    previousLastItems &&
+    previousLastItems.length > 0 &&
+    shuffled.length > 1
+  ) {
+    const firstCurrentSymbol = shuffled[0].symbol;
+    const lastPreviousSymbol =
+      previousLastItems[previousLastItems.length - 1].symbol;
+
+    if (firstCurrentSymbol === lastPreviousSymbol) {
+      // Swap the first element with a random element further down the queue
+      const swapIndex = Math.floor(Math.random() * (shuffled.length - 1)) + 1;
+      [shuffled[0], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[0]];
+    }
+  }
+
+  return shuffled;
 }
 
 function renderAnswerMode(cardItems, cardSize) {
