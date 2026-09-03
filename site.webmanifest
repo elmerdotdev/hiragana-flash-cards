@@ -1,6 +1,6 @@
 {
   "name": "Hiragana Flash Cards",
-  "short_name": "Hiragana",
+  "short_name": "Hiragana Flash Cards",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",

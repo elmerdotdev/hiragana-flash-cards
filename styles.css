@@ -378,7 +378,7 @@ button:disabled {
 }
 
 .flashcard {
-  min-height: clamp(190px, 34vh, 310px);
+  min-height: clamp(190px, 28vh, 310px);
   border: 1px solid var(--line);
   border-radius: 8px;
   display: grid;
@@ -389,7 +389,7 @@ button:disabled {
 .symbol-text {
   font-family:
     'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', system-ui, sans-serif;
-  font-size: clamp(4.5rem, 18vw, 10rem);
+  font-size: clamp(3.5rem, 18vw, 10rem);
   line-height: 1;
   letter-spacing: 0;
   text-align: center;
@@ -499,10 +499,6 @@ button:disabled {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .segmented-control {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
   .type-control {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -528,11 +524,6 @@ button:disabled {
 
   .score-readout {
     text-align: right;
-  }
-
-  .segmented-control,
-  .choices {
-    grid-template-columns: 1fr;
   }
 
   .type-control {

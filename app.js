@@ -396,6 +396,14 @@ function startQuiz() {
   );
   elements.form.hidden = desktopQuery.matches ? false : true;
   elements.quizArea.hidden = false;
+
+  if (window.innerWidth < 768) {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
+
   showNextCard();
 }
 
