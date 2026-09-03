@@ -188,6 +188,7 @@ const state = {
   soundEnabled: loadSoundEnabled(),
   cardType: 'choices',
   score: loadScore(),
+  streak: 0,
   bestScore: loadBestScore(),
 };
 
@@ -200,8 +201,6 @@ async function init() {
   renderSetOptions();
   renderSymbolsPanel();
   restoreSettings();
-  state.bestScore = Math.max(state.bestScore, state.score.correct);
-  saveBestScore();
   renderScore();
   renderSoundToggle();
   bindEvents();
@@ -243,6 +242,7 @@ function bindEvents() {
 
   elements.resetScoreButton.addEventListener('click', () => {
     state.score = { correct: 0, attempts: 0 };
+    state.streak = 0;
     saveScore();
     renderScore();
   });
@@ -482,8 +482,14 @@ function handleChoice(button, choice) {
   state.answered = true;
   const isCorrect = choice === state.currentAnswer;
   state.score.attempts += 1;
-  if (isCorrect) state.score.correct += 1;
-  updateBestScore();
+
+  if (isCorrect) {
+    state.score.correct += 1;
+    state.streak += 1;
+    updateBestScore();
+  } else {
+    state.streak = 0;
+  }
 
   playAnswerSound(isCorrect);
   saveScore();
@@ -509,8 +515,14 @@ function handleInputAnswer() {
   state.answered = true;
   const isCorrect = answer === normalizeAnswer(state.currentAnswer);
   state.score.attempts += 1;
-  if (isCorrect) state.score.correct += 1;
-  updateBestScore();
+
+  if (isCorrect) {
+    state.score.correct += 1;
+    state.streak += 1;
+    updateBestScore();
+  } else {
+    state.streak = 0;
+  }
 
   playAnswerSound(isCorrect);
   saveScore();
@@ -574,8 +586,8 @@ function saveBestScore() {
 }
 
 function updateBestScore() {
-  if (state.score.correct > state.bestScore) {
-    state.bestScore = state.score.correct;
+  if (state.streak > state.bestScore) {
+    state.bestScore = state.streak;
     saveBestScore();
   }
 }
