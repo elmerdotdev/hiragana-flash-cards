@@ -1,17 +1,18 @@
-const CACHE_NAME = 'hiragana-pwa-v5';
+const CACHE_NAME = 'hiragana-pwa-v6';
 const ASSETS_TO_CACHE = [
   './index.html',
-  './styles.css',
-  './app.js',
-  './hiragana.json',
   './site.webmanifest',
-  './icons/android-chrome-192x192.png',
-  './icons/android-chrome-512x512.png',
-  './icons/apple-touch-icon.png',
-  './icons/favicon-32x32.png',
-  './icons/favicon-16x16.png',
-  './audio/correct.mp3',
-  './audio/incorrect.mp3',
+  './assets/css/styles.css',
+  './assets/js/app.js',
+  './assets/data/hiragana.json',
+  './assets/icons/android-chrome-192x192.png',
+  './assets/icons/android-chrome-512x512.png',
+  './assets/icons/apple-touch-icon.png',
+  './assets/icons/favicon-32x32.png',
+  './assets/icons/favicon-16x16.png',
+  './assets/icons/favicon.ico',
+  './assets/audio/correct.mp3',
+  './assets/audio/incorrect.mp3',
 ];
 
 self.addEventListener('install', (event) => {

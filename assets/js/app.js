@@ -198,8 +198,8 @@ const state = {
   currentAnswer: '',
   answered: false,
   sounds: {
-    correct: new Audio('audio/correct.mp3'),
-    incorrect: new Audio('audio/incorrect.mp3'),
+    correct: new Audio('assets/audio/correct.mp3'),
+    incorrect: new Audio('assets/audio/incorrect.mp3'),
   },
   soundEnabled: loadSoundEnabled(),
   cardType: 'choices',
@@ -225,7 +225,7 @@ async function init() {
 
 async function loadData() {
   try {
-    const response = await fetch('hiragana.json', { cache: 'no-store' });
+    const response = await fetch('assets/data/hiragana.json', { cache: 'no-store' });
     if (!response.ok) throw new Error('Unable to load hiragana.json');
     return await response.json();
   } catch {
